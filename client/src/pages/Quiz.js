@@ -48,7 +48,7 @@ function Quiz(props) {
       <div style={{ display: 'flex', fontSize: '20px' }}>
         <div style={{ textAlign: 'left', width: '33.33333%' }}>
           <Link
-            class='homeLink'
+            className='homeLink'
             style={{ fontSize: '30px', marginLeft: '10px' }}
             to='/'
           >
