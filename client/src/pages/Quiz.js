@@ -138,13 +138,14 @@ function Quiz(props) {
       <ChakraProvider>
         <Center>
           <BetterButton
+            isDisabled={quizDone}
             onClick={() => setQuizDone(true)}
             marginTop='50px'
             colorScheme='green'
             size='lg'
             marginBottom='50px'
           >
-            Submit Answers
+            {quizDone ? 'Submitted' : 'Submit Answers'}
           </BetterButton>
         </Center>
       </ChakraProvider>
