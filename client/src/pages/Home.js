@@ -17,7 +17,6 @@ function Home() {
   } = useQuery(FETCH_QUIZZES_QUERY);
 
   if (loading) {
-    console.log(process.env.API_URI);
     return (
       <ChakraProvider>
         <Center>
