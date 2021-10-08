@@ -27,7 +27,13 @@ function Home() {
   }
 
   if (error) {
-    return `Error! ${error}`;
+    return (
+      <ChakraProvider>
+        <Center>
+          <Spinner marginTop='50px' size='xl' />
+        </Center>
+      </ChakraProvider>
+    );
   }
 
   return (
