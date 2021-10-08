@@ -8,7 +8,7 @@ import {
 } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'https://daniel-quiz-training.herokuapp.com/graphql',
+  uri: process.env.API_URI || 'http://localhost:5000/graphql',
 });
 
 const client = new ApolloClient({

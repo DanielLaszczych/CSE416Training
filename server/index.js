@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const gql = require('graphql-tag');
@@ -5,13 +6,13 @@ const mongoose = require('mongoose');
 
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
-// const { MONGODB } = require('./config.js');
 
 const PORT = process.env.PORT || 5000;
 startApolloServer();
 
 async function startApolloServer() {
   const app = express();
+  app.use(express.static('public'));
   const server = new ApolloServer({
     typeDefs,
     resolvers,
