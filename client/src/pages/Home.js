@@ -15,7 +15,7 @@ function Home() {
     error,
     data: { getQuizzes: quizzes } = {},
   } = useQuery(FETCH_QUIZZES_QUERY);
-
+  console.log(process.env.API_URI);
   if (loading) {
     return (
       <ChakraProvider>
