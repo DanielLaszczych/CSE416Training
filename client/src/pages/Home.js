@@ -1,6 +1,12 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Center, Container, Box } from '@chakra-ui/react';
+import {
+  Center,
+  Container,
+  Box,
+  Spinner,
+  ChakraProvider,
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -11,7 +17,13 @@ function Home() {
   } = useQuery(FETCH_QUIZZES_QUERY);
 
   if (loading) {
-    return null;
+    return (
+      <ChakraProvider>
+        <Center>
+          <Spinner marginTop='50px' size='xl' />
+        </Center>
+      </ChakraProvider>
+    );
   }
 
   if (error) {
@@ -19,26 +31,28 @@ function Home() {
   }
 
   return (
-    <div>
-      <Container centerContent>
-        <Box marginBottom='40px' fontSize='80px' textDecoration='underline'>
-          Quizzes
-        </Box>
-        {quizzes.map((quiz) => (
-          <Center
-            as={Link}
-            color='black'
-            fontSize='50px'
-            textDecoration='none'
-            key={quiz.id}
-            to={`/quiz/${quiz.id}`}
-            _hover={{ color: 'purple' }}
-          >
-            {quiz.title}
-          </Center>
-        ))}
-      </Container>
-    </div>
+    <ChakraProvider>
+      <div>
+        <Container centerContent>
+          <Box marginBottom='40px' fontSize='80px' textDecoration='underline'>
+            Quizzes
+          </Box>
+          {quizzes.map((quiz) => (
+            <Center
+              as={Link}
+              color='black'
+              fontSize='50px'
+              textDecoration='none'
+              key={quiz.id}
+              to={`/quiz/${quiz.id}`}
+              _hover={{ color: 'purple' }}
+            >
+              {quiz.title}
+            </Center>
+          ))}
+        </Container>
+      </div>
+    </ChakraProvider>
   );
 }
 
@@ -47,12 +61,6 @@ const FETCH_QUIZZES_QUERY = gql`
     getQuizzes {
       id
       title
-      questions {
-        id
-        question
-        answer
-        answerChoices
-      }
     }
   }
 `;

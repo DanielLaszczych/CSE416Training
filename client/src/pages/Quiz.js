@@ -44,98 +44,103 @@ function Quiz(props) {
   }
 
   return (
-    <Box>
-      <div style={{ display: 'flex', fontSize: '20px' }}>
-        <div style={{ textAlign: 'left', width: '33.33333%' }}>
-          <Link
-            className='homeLink'
-            style={{ fontSize: '30px', marginLeft: '10px' }}
-            to='/'
+    <ChakraProvider>
+      <Box>
+        <div style={{ display: 'flex', fontSize: '20px' }}>
+          <div style={{ textAlign: 'left', width: '33.33333%' }}>
+            <Link
+              className='homeLink'
+              style={{ fontSize: '30px', marginLeft: '10px' }}
+              to='/'
+            >
+              Home
+            </Link>
+          </div>
+          <div
+            style={{
+              textAlign: 'center',
+              width: '33.33333%',
+              fontSize: '50px',
+              textDecoration: 'underline',
+            }}
           >
-            Home
-          </Link>
+            {quiz.title}
+          </div>
         </div>
-        <div
-          style={{
-            textAlign: 'center',
-            width: '33.33333%',
-            fontSize: '50px',
-            textDecoration: 'underline',
-          }}
-        >
-          {quiz.title}
-        </div>
-      </div>
-      {quiz.questions.map((question, index) => (
-        <Box key={question.id}>
-          <Center fontSize='30px' marginTop='20px' marginBottom='20px'>
-            {question.question}
-          </Center>
-          <Container centerContent>
-            {question.answerChoices.map((choice) => (
-              <Center
-                key={question.id + choice}
-                border={() => {
-                  if (
-                    quizDone &&
-                    userAnswers[index] !== choice &&
-                    choice === question.answer
-                  ) {
-                    return '5px';
-                  } else {
-                    return '1px';
-                  }
-                }}
-                borderStyle='solid'
-                borderColor={() => {
-                  if (
-                    quizDone &&
-                    userAnswers[index] !== choice &&
-                    choice === question.answer
-                  ) {
-                    return '#00bd00';
-                  } else {
-                    return 'black';
-                  }
-                }}
-                borderRadius='8px'
-                padding='5px'
-                margin='5px'
-                width='40%'
-                fontSize='30px'
-                onClick={() => {
-                  if (!quizDone) {
-                    updateUserAnswers(index, choice);
-                  }
-                }}
-                background={() => {
-                  if (userAnswers[index] === choice) {
-                    if (quizDone && userAnswers[index] !== question.answer) {
-                      return '#ff4646';
+        {quiz.questions.map((question, index) => (
+          <Box key={question.id}>
+            <Center
+              textAlign='center'
+              fontSize='30px'
+              marginTop='20px'
+              marginBottom='20px'
+            >
+              {question.question}
+            </Center>
+            <Container centerContent>
+              {question.answerChoices.map((choice) => (
+                <Center
+                  key={question.id + choice}
+                  borderRadius='8px'
+                  padding='5px'
+                  margin='5px'
+                  fontSize='30px'
+                  minWidth='100%'
+                  border={() => {
+                    if (
+                      quizDone &&
+                      userAnswers[index] !== choice &&
+                      choice === question.answer
+                    ) {
+                      return '5px';
                     } else {
-                      return 'lightgreen';
+                      return '1px';
                     }
-                  } else {
-                    return 'transparent';
-                  }
-                }}
-                _hover={() => {
-                  if (!quizDone) {
+                  }}
+                  borderStyle='solid'
+                  borderColor={() => {
+                    if (
+                      quizDone &&
+                      userAnswers[index] !== choice &&
+                      choice === question.answer
+                    ) {
+                      return '#00bd00';
+                    } else {
+                      return 'black';
+                    }
+                  }}
+                  onClick={() => {
+                    if (!quizDone) {
+                      updateUserAnswers(index, choice);
+                    }
+                  }}
+                  background={() => {
                     if (userAnswers[index] === choice) {
-                      return { background: 'lightgreen', cursor: 'pointer' };
+                      if (quizDone && userAnswers[index] !== question.answer) {
+                        return '#ff4646';
+                      } else {
+                        return 'lightgreen';
+                      }
                     } else {
-                      return { background: 'lightgray', cursor: 'pointer' };
+                      return 'transparent';
                     }
-                  }
-                }}
-              >
-                {choice}
-              </Center>
-            ))}
-          </Container>
-        </Box>
-      ))}
-      <ChakraProvider>
+                  }}
+                  _hover={() => {
+                    if (!quizDone) {
+                      if (userAnswers[index] === choice) {
+                        return { background: 'lightgreen', cursor: 'pointer' };
+                      } else {
+                        return { background: 'lightgray', cursor: 'pointer' };
+                      }
+                    }
+                  }}
+                >
+                  {choice}
+                </Center>
+              ))}
+            </Container>
+          </Box>
+        ))}
         <Center>
           <BetterButton
             isDisabled={quizDone}
@@ -148,8 +153,8 @@ function Quiz(props) {
             {quizDone ? 'Submitted' : 'Submit Answers'}
           </BetterButton>
         </Center>
-      </ChakraProvider>
-    </Box>
+      </Box>
+    </ChakraProvider>
   );
 }
 

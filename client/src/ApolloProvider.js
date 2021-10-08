@@ -8,7 +8,7 @@ import {
 } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'https://cse416-quiz-training-api.herokuapp.com',
+  uri: process.env.API_URI || 'http://localhost:5000',
 });
 
 const client = new ApolloClient({
