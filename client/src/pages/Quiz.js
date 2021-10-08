@@ -6,6 +6,7 @@ import {
   Container,
   Button as BetterButton,
   ChakraProvider,
+  Spinner,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import './Quiz.css';
@@ -36,7 +37,13 @@ function Quiz(props) {
   }
 
   if (loading) {
-    return null;
+    return (
+      <ChakraProvider>
+        <Center>
+          <Spinner marginTop='50px' size='xl' />
+        </Center>
+      </ChakraProvider>
+    );
   }
 
   if (error) {
