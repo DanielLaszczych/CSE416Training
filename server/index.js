@@ -3,6 +3,7 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const gql = require('graphql-tag');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
@@ -13,7 +14,7 @@ startApolloServer();
 async function startApolloServer() {
   const app = express();
   app.use(express.static('public'));
-  app.get('/*', (request, response) => {
+  app.get('*', (request, response) => {
     response.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
   const server = new ApolloServer({
