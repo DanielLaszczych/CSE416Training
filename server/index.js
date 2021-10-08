@@ -13,7 +13,7 @@ startApolloServer();
 async function startApolloServer() {
   const app = express();
   app.use(express.static('public'));
-  app.get('*', (request, response) => {
+  app.get('/*', (request, response) => {
     response.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
   const server = new ApolloServer({
