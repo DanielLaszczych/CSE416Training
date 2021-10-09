@@ -1,12 +1,11 @@
 {
-  "name": "mern_training",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "serve": "nodemon index.js",
-    "start": "node index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
