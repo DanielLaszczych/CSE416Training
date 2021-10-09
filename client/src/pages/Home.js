@@ -18,45 +18,53 @@ function Home() {
 
   if (loading) {
     return (
-      <ChakraProvider>
-        <Center>
-          <Spinner marginTop='50px' size='xl' />
-        </Center>
-      </ChakraProvider>
+      <Center>
+        <Spinner marginTop='50px' size='xl' />
+      </Center>
     );
   }
 
   if (error) {
-    return (
-      <ChakraProvider>
-        <Center>
-          <Spinner marginTop='50px' size='xl' />
-        </Center>
-      </ChakraProvider>
-    );
+    return `Error! ${error}`;
   }
 
   return (
     <ChakraProvider>
       <div>
-        <Container centerContent>
-          <Box marginBottom='40px' fontSize='80px' textDecoration='underline'>
+        <div style={{ display: 'flex' }}>
+          <div style={{ width: '33.33333%' }} />
+          <div
+            style={{
+              marginBottom: '40px',
+              width: '33.33333%',
+              fontSize: '80px',
+              textAlign: 'center',
+              textDecoration: 'underline',
+            }}
+          >
             Quizzes
-          </Box>
-          {quizzes.map((quiz) => (
-            <Center
-              as={Link}
-              color='black'
-              fontSize='50px'
-              textDecoration='none'
-              key={quiz.id}
+          </div>
+          <div style={{ textAlign: 'right', width: '33.33333%' }}>
+            <Link
+              className='homeLink'
+              style={{ fontSize: '30px', marginRight: '10px' }}
+              to='/'
+            >
+              Create Quiz
+            </Link>
+          </div>
+        </div>
+        {quizzes.map((quiz) => (
+          <Center color='black' textDecoration='none' key={quiz.id}>
+            <Link
+              className='homeLink'
+              style={{ fontSize: '50px', marginRight: '10px' }}
               to={`/quiz/${quiz.id}`}
-              _hover={{ color: 'purple' }}
             >
               {quiz.title}
-            </Center>
-          ))}
-        </Container>
+            </Link>
+          </Center>
+        ))}
       </div>
     </ChakraProvider>
   );

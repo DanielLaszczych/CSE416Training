@@ -13,16 +13,24 @@ startApolloServer();
 
 async function startApolloServer() {
   const app = express();
-  app.use(express.static('public'));
-  app.get('*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'public', 'index.html'));
-  });
   const server = new ApolloServer({
     typeDefs,
     resolvers,
   });
+
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('../client/build'));
+    app.get('*', (request, response) => {
+      response.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    });
+  } else {
+    app.get('/', (req, res) => {
+      res.send('Hello World!');
+    });
+  }
 
   mongoose
     .connect(process.env.DATABASE_URL, { useNewUrlParser: true })
@@ -31,7 +39,7 @@ async function startApolloServer() {
       return app.listen({ port: PORT });
     })
     .then((res) => {
-      console.log(`Server running at ${res.port}`);
+      console.log(`Server running at http://localhost:${PORT}`);
     })
     .catch((err) => {
       console.error(err);
