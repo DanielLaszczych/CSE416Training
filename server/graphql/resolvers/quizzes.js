@@ -23,4 +23,46 @@ module.exports = {
       }
     },
   },
+  Mutation: {
+    async createQuiz(_, { quizInput: { title, questions } }) {
+      if (title.trim() === '') {
+        throw new Error('Quiz title cannot be blank');
+      }
+
+      const valid = questions.forEach((question) => {
+        if (question.question.trim() === '') {
+          throw new Error('A question cannot be blank');
+        }
+        let answerMatch = false;
+        if (question.answer.trim() === '') {
+          throw new Error('An answer cannot be blank');
+        }
+        if (question.answerChoices.length <= 1) {
+          throw new Error('A question must have at least two choices');
+        }
+        question.answerChoices.forEach((choice) => {
+          if (choice.trim() === '') {
+            throw new Error('An answer choice cannot be blank');
+          }
+          if (choice.trim() === question.answer.trim()) {
+            answerMatch = true;
+          }
+        });
+        if (!answerMatch) {
+          throw new Error(
+            'A question must have an answer choice that matches the answer'
+          );
+        }
+      });
+
+      const newQuiz = new Quiz({
+        title,
+        questions,
+      });
+
+      const quiz = await newQuiz.save();
+
+      return quiz;
+    },
+  },
 };

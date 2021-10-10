@@ -4,4 +4,7 @@ module.exports = {
   Query: {
     ...quizzesResolvers.Query,
   },
+  Mutation: {
+    ...quizzesResolvers.Mutation,
+  },
 };
